@@ -38,3 +38,5 @@ out/
 ### VS Code ###
 .vscode/
 logs
+mylog.log
+mylog-2023-08-01.0.log.gz

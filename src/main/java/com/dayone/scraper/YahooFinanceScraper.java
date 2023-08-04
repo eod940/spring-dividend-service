@@ -30,11 +30,11 @@ public class YahooFinanceScraper implements Scraper {
         scrapResult.setCompany(company);
 
         try {
-            long now = System.currentTimeMillis() / 1000;
+            long end = System.currentTimeMillis() / 1000;
 
-            String url = String.format(STATISTICS_URL, company.getTicker(), START_TIME, now);
+            String url = String.format(STATISTICS_URL, company.getTicker(), START_TIME, end);
             Connection connection = Jsoup.connect(url);
-            Document document = connection.get();
+            Document document = connection.get();  // html source
 
             Elements parsingDivs = document.getElementsByAttributeValue("data-test", "historical-prices");
             Element tableEle = parsingDivs.get(0);  // table 전체
@@ -58,9 +58,10 @@ public class YahooFinanceScraper implements Scraper {
                     throw new RuntimeException("Unexpected Month enum value -> " + splits[0]);
                 }
 
-                Dividend d = null;  // not implemented yet
-                dividends.add(d);
-
+                dividends.add(Dividend.builder()
+                        .date(LocalDateTime.of(year, month, day, 0, 0))
+                        .dividend(dividend)
+                        .build());
             }
             scrapResult.setDividends(dividends);
 
@@ -81,7 +82,10 @@ public class YahooFinanceScraper implements Scraper {
             Element titleEle = document.getElementsByTag("h1").get(0);
             String title = titleEle.text().split(" - ")[1].trim();
 
-            return new Company(ticker, title);
+            return Company.builder()
+                    .ticker(ticker)
+                    .name(title)
+                    .build();
         } catch (IOException e) {
             e.printStackTrace();
         }

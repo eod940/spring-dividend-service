@@ -1,5 +1,9 @@
 package com.dayone;
 
+import com.dayone.model.Company;
+import com.dayone.model.ScrapedResult;
+import com.dayone.scraper.Scraper;
+import com.dayone.scraper.YahooFinanceScraper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;

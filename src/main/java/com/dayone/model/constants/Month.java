@@ -24,7 +24,7 @@ public enum Month {
     }
 
     public static int strToNumber(String s) {
-        for (var m : Month.values()) {
+        for (var m : Month.values()) {  // m -> Month 타입
             if (m.s.equals(s)) {
                 return m.number;
             }

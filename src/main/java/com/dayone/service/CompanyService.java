@@ -44,7 +44,7 @@ public class CompanyService {
     private final Scraper yahooFinanceScraper;
 
     public Page<CompanyEntity> getAllCompany(Pageable pageable) {
-        throw new NotYetImplementedException();
+        return this.companyRepository.findAll(pageable);
     }
 
     private Company storeCompanyAndDividend(String ticker) {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+ @AllArgsConstructor
 @Builder
 public class ScrapedResult {
 

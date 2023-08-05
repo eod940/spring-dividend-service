@@ -38,13 +38,24 @@ public class TokenProvider {
     public String generateToken(String username, List<String> roles) {
         // 다음 정보들을 포함한 claims 생성
         //      - username
+        Claims claims = Jwts.claims().setSubject(username);
+
         //      - roles
+        claims.put(KEY_ROLES, roles);
+
         //      - 생성 시간
         //      - 만료 시간
-        //      - signature
+        Date now = new Date();
+        Date expiredDate = new Date(now.getTime() + TOKEN_EXPIRE_TIME);
 
+        //      - signature
         // jwt 발급
-        throw new NotYetImplementedException();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, this.secretKey)  // 사용할 암호화 알고리즘, 비밀키
+                .compact();
     }
 
     public Authentication getAuthentication(String jwt) {

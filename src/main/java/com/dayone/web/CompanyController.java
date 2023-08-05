@@ -42,7 +42,7 @@ public class CompanyController {
      * @return
      */
     @GetMapping
-//    @PreAuthorize("hasRole('READ')")
+    @PreAuthorize("hasRole('READ')")
     public ResponseEntity<?> searchCompany(final Pageable pageable) {
         Page<CompanyEntity> companies = this.companyService.getAllCompany(pageable);
         return ResponseEntity.ok(companies);
@@ -54,7 +54,7 @@ public class CompanyController {
      * @return
      */
     @PostMapping
-//    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasRole('WRITE')")
     public ResponseEntity<?> addCompany(@RequestBody Company request) {
         String ticker = request.getTicker().trim();
         if (ObjectUtils.isEmpty(ticker)) {
@@ -70,6 +70,7 @@ public class CompanyController {
     @PreAuthorize("hasRole('WRITE')")
     public ResponseEntity<?> deleteCompany(@PathVariable String ticker) {
         String companyName = this.companyService.deleteCompany(ticker);
+        // 캐시에서도 지워줘야 한다.
         this.clearFinanceCache(companyName);
         return ResponseEntity.ok(companyName);
     }

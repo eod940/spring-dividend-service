@@ -29,6 +29,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CompanyService {
 
+    private final Trie trie;
+    private final Scraper yahooFinanceScraper;
+
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
 
@@ -39,9 +42,6 @@ public class CompanyService {
         }
         return this.storeCompanyAndDividend(ticker);
     }
-
-    private final Trie trie;
-    private final Scraper yahooFinanceScraper;
 
     public Page<CompanyEntity> getAllCompany(Pageable pageable) {
         return this.companyRepository.findAll(pageable);
@@ -65,21 +65,29 @@ public class CompanyService {
 
         this.dividendRepository.saveAll(dividendEntities);
         return company;
-
-//        throw new NotYetImplementedException();
     }
 
+    // DB 쿼리를 사용한 자동완성
     public List<String> getCompanyNamesByKeyword(String keyword) {
-        throw new NotYetImplementedException();
+        Pageable limit = PageRequest.of(0,10);
+        Page<CompanyEntity> companyEntities =
+                this.companyRepository
+                        .findByNameStartingWithIgnoreCase(keyword, limit);
+
+        return companyEntities.stream()
+                .map(e -> e.getName())
+                .collect(Collectors.toList());
     }
 
     public void addAutocompleteKeyword(String keyword) {
         this.trie.put(keyword, null);
     }
 
+    // Trie를 이용한 자동완성
     public List<String> autocomplete(String keyword) {
         return (List<String>) this.trie.prefixMap(keyword).keySet()
                 .stream()
+                .limit(6)
                 .collect(Collectors.toList());
     }
 

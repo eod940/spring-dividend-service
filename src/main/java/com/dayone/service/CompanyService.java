@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CompanyService {
 
-    private final Trie trie;
+    private final Trie<String, String> trie;
     private final Scraper yahooFinanceScraper;
 
     private final CompanyRepository companyRepository;
@@ -88,7 +88,7 @@ public class CompanyService {
 
     // Trie를 이용한 자동완성
     public List<String> autocomplete(String keyword) {
-        return (List<String>) this.trie.prefixMap(keyword).keySet()
+        return this.trie.prefixMap(keyword).keySet()
                 .stream()
                 .limit(6)
                 .collect(Collectors.toList());

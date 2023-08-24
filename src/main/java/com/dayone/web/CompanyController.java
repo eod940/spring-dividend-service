@@ -4,16 +4,23 @@ import com.dayone.model.Company;
 import com.dayone.model.constants.CacheKey;
 import com.dayone.persist.entity.CompanyEntity;
 import com.dayone.service.CompanyService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -31,8 +38,8 @@ public class CompanyController {
      * @return
      */
     @GetMapping("/autocomplete")
-    public ResponseEntity<?> autocomplete(@RequestParam String keyword) {
-        var result = this.companyService.autocomplete(keyword);
+    public ResponseEntity<List<String>> autocomplete(@RequestParam String keyword) {
+        List<String> result = this.companyService.autocomplete(keyword);
         return ResponseEntity.ok(result);
     }
 
@@ -43,7 +50,7 @@ public class CompanyController {
      */
     @GetMapping
     @PreAuthorize("hasRole('READ')")
-    public ResponseEntity<?> searchCompany(final Pageable pageable) {
+    public ResponseEntity<Page<CompanyEntity>> searchCompany(final Pageable pageable) {
         Page<CompanyEntity> companies = this.companyService.getAllCompany(pageable);
         return ResponseEntity.ok(companies);
     }
@@ -55,7 +62,7 @@ public class CompanyController {
      */
     @PostMapping
     @PreAuthorize("hasRole('WRITE')")
-    public ResponseEntity<?> addCompany(@RequestBody Company request) {
+    public ResponseEntity<Company> addCompany(@RequestBody Company request) {
         String ticker = request.getTicker().trim();
         if (ObjectUtils.isEmpty(ticker)) {
             throw new RuntimeException("ticker is empty");
@@ -68,7 +75,7 @@ public class CompanyController {
 
     @DeleteMapping("/{ticker}")
     @PreAuthorize("hasRole('WRITE')")
-    public ResponseEntity<?> deleteCompany(@PathVariable String ticker) {
+    public ResponseEntity<String> deleteCompany(@PathVariable String ticker) {
         String companyName = this.companyService.deleteCompany(ticker);
         // 캐시에서도 지워줘야 한다.
         this.clearFinanceCache(companyName);

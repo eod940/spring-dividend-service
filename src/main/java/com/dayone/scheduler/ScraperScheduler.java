@@ -38,7 +38,7 @@ public class ScraperScheduler {
         List<CompanyEntity> companies = this.companyRepository.findAll();
 
         // 회사마다 배당금 정보를 새로 스크래핑
-        for (var company : companies) {
+        for (CompanyEntity company : companies) {
             log.info("scraping scheduler is started -> " + company.getName());
             ScrapedResult scrapedResult = this.yahooFinanceScraper.scrap(
                                                         new Company(company.getTicker(), company.getName()));

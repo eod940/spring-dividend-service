@@ -70,7 +70,7 @@ public class TokenProvider {
     public boolean validateToken(String token) {
         if (!StringUtils.hasText(token)) return false;
 
-        var claims = this.parseClaims(token);
+        Claims claims = this.parseClaims(token);
         return !claims.getExpiration().before(new Date());
     }
 

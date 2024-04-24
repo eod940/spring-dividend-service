@@ -15,6 +15,9 @@ spring과 jsoup을 이용한 배당금 서비스입니다.
 - Spring Boot, Java, JPA, H2, Redis, Jsoup, Docker
 
 
+## 프로젝트 소개
+-
+
 ## API 리스트
 1) GET - finance/dividend/{companyName}
    - 회사 이름을 인풋으로 받아서 해당 회사의 메타 정보와 배당금 정보를 반환

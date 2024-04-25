@@ -1,22 +1,26 @@
 # spring-dividend-service
-spring과 jsoup을 이용한 배당금 서비스입니다.
-
+ 내배당 서비스는 배당금을 배분하는 미국 주식 정보를 제공하는 API 서비스입니다. 사용자는 원하는 기업의 배당금 정보를 확인할 수 있습니다. 또한 기업 검색, 저장, 삭제 등 기업 정보를 관리할 수 있습니다. 해당 서비스는 웹 스크래핑을 기반으로 하기 떄문에 Yahoo finance 사이트의 robots.txt 문서를 확인해 접근 권한을 준수하였습니다.
 
 ## 목표
 - 미국 주식 배당금 정보를 제공하는 API 서비스를 개발합니다.
-    - 웹 페이지를 분석하고 스크래핑 기법을 활용하여 필요한 데이터를 추출/저장합니다.
-      - Jsoup를 사용한 [Yahoo finance 사이트](https://finance.yahoo.com/) 스크래핑
-    - 사용자별 데이터를 관리하고 예상 배당금 액수를 계산합니다.
-    - 캐시 서버를 구성합니다.
-      - redis 이용
-
+- 웹 페이지를 분석하고 스크래핑 기법을 활용하여 필요한 데이터를 추출/저장합니다.
+  - Jsoup를 사용한 [Yahoo finance 사이트](https://finance.yahoo.com/) 스크래핑
+- 사용자별 데이터를 관리하고 예상 배당금 액수를 계산합니다.
+- 캐시 서버를 구성합니다.
 
 ## 기술 스택
-- Spring Boot, Java, JPA, H2, Redis, Jsoup, Docker
 
-
-## 프로젝트 소개
--
+![spring boot](https://img.shields.io/badge/spring%20boot-6DB33F?style=for-the-badge&logo=spring%20boot&logoColor=white)
+![spring security](https://img.shields.io/badge/spring%20security-6DB33F?style=for-the-badge&logo=spring%20security&logoColor=white)
+![spring jpa](https://img.shields.io/badge/spring%20jpa-6DB33F?style=for-the-badge&logo=spring%20jpa&logoColor=white)
+<br />
+![h2 database](https://img.shields.io/badge/H2_Database-blue?style=for-the-badge)
+![redis](https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+<br />
+![jwt](https://img.shields.io/badge/jwt-black?style=for-the-badge&logo=json%20web%20tokens)
+![gradle](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
+![junit](https://img.shields.io/badge/junit-25A162?style=for-the-badge&logo=junit5&logoColor=white)
+![postman](https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
 ## API 리스트
 1) GET - finance/dividend/{companyName}

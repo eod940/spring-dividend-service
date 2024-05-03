@@ -22,6 +22,12 @@
 ![junit](https://img.shields.io/badge/junit-25A162?style=for-the-badge&logo=junit5&logoColor=white)
 ![postman](https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
+## 프로젝트 구조
+![내배당](https://github.com/eod940/spring-dividend-service/assets/51254234/54ce789f-cc53-4d6e-9d6f-5fbe77ae8155)
+
+## ERD
+![내배당ERD](https://github.com/eod940/spring-dividend-service/assets/51254234/ca5492c7-d3be-4998-b86d-b231d25894cb)
+
 ## API 리스트
 
 ### ✅ 주식 API

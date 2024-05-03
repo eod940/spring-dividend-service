@@ -42,7 +42,7 @@
 ### ✅ 기업 API
 1) GET - company/autocomplete
    - **자동완성 기능**을 위한 API
-   - 검색하고자 하는 prefix 를 입력으로 받고, 해당 prefix 로 검색되는 회사명 리스트 중 10개 반환
+   - 검색하고자 하는 prefix 를 입력으로 받고, 해당 prefix 로 검색되는 회사명 리스트 중 6개 반환
 
 2) GET - company
    - 서비스에서 관리하고 있는 **모든 회사 목록을 반환**
